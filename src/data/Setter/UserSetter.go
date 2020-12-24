@@ -27,7 +27,7 @@ func NewUserSetterImpl() *UserSetterImpl {
 func (this *UserSetterImpl) AddUser(impl *UserModel.UserModelImpl) *result.ErrorResult {
 
 
-	if dbs.Orm.Save(&impl).RowsAffected == 1 {
+	if 	dbs.Orm.First(&impl,"u_email = ? or u_name = ?",impl.Email,impl.Name).RecordNotFound()  && dbs.Orm.Save(&impl).RowsAffected == 1 {
 		return &result.ErrorResult{
 			Err:  nil,
 			Data: impl,
