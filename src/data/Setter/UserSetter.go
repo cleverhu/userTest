@@ -30,7 +30,6 @@ func NewUserSetterImpl() *UserSetterImpl {
 func (this *UserSetterImpl) AddUser(u *UserModel.UserModelImpl) *result.ErrorResult {
 	if dbs.Orm.First(&u, "u_email = ? or u_name = ?", u.Email, u.Name).RecordNotFound() {
 		err := dbs.Orm.Transaction(func(tx *gorm.DB) error {
-			//&& dbs.Orm.Save(&impl).RowsAffected == 1
 			if err := tx.Save(&u).Error; err != nil {
 				return err
 			}
@@ -39,9 +38,6 @@ func (this *UserSetterImpl) AddUser(u *UserModel.UserModelImpl) *result.ErrorRes
 			if err := tx.Save(&l).Error; err != nil {
 				return err
 			}
-
-			//tx.cre
-
 			return nil
 		})
 		if err == nil {
