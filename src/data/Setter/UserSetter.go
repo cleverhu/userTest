@@ -2,7 +2,10 @@ package Setter
 
 import (
 	"fmt"
+	"github.com/jinzhu/gorm"
+	"time"
 	"userTest/src/dbs"
+	"userTest/src/models/LogModel"
 	"userTest/src/models/UserModel"
 	"userTest/src/result"
 )
@@ -24,13 +27,33 @@ func NewUserSetterImpl() *UserSetterImpl {
 	return &UserSetterImpl{}
 }
 
-func (this *UserSetterImpl) AddUser(impl *UserModel.UserModelImpl) *result.ErrorResult {
+func (this *UserSetterImpl) AddUser(u *UserModel.UserModelImpl) *result.ErrorResult {
+	if dbs.Orm.First(&u, "u_email = ? or u_name = ?", u.Email, u.Name).RecordNotFound() {
+		err := dbs.Orm.Transaction(func(tx *gorm.DB) error {
+			//&& dbs.Orm.Save(&impl).RowsAffected == 1
+			if err := tx.Save(&u).Error; err != nil {
+				return err
+			}
 
+			l := LogModel.New("add user", time.Now())
+			if err := tx.Save(&l).Error; err != nil {
+				return err
+			}
 
-	if 	dbs.Orm.First(&impl,"u_email = ? or u_name = ?",impl.Email,impl.Name).RecordNotFound()  && dbs.Orm.Save(&impl).RowsAffected == 1 {
-		return &result.ErrorResult{
-			Err:  nil,
-			Data: impl,
+			//tx.cre
+
+			return nil
+		})
+		if err == nil {
+			return &result.ErrorResult{
+				Err:  nil,
+				Data: u,
+			}
+		}else{
+			return &result.ErrorResult{
+				Err:  fmt.Errorf("add user transaction error"),
+				Data: nil,
+			}
 		}
 	} else {
 		return &result.ErrorResult{
