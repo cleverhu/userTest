@@ -1,6 +1,9 @@
 package myValidators
 
-import "github.com/go-playground/validator/v10"
+import (
+	"github.com/go-playground/validator/v10"
+	"strings"
+)
 
 type PassWord string
 
@@ -17,7 +20,12 @@ func (this PassWord) toFunc() validator.Func {
 }
 
 func (this PassWord) validate(v string) bool {
+	v = strings.TrimSpace(v)
 	if err := myValidator.Var(v, string(this)); err != nil {
+		return false
+	}
+	if strings.Index(v, " ") != -1 {
+		validatorError["PassWord"] = "密码不能包含空格"
 		return false
 	}
 	return true

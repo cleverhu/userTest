@@ -1,7 +1,5 @@
 package UserModel
 
-import "time"
-
 //func New(attrs ...UserModelAttrFunc) *UserModelImpl {
 //	u := &UserModelImpl{}
 //	UserModelAttrFuncs(attrs).Apply(u)
@@ -50,10 +48,8 @@ func WithUserEmail(email string) UserModelAttrFunc {
 	}
 }
 
-func WithUpdateTime(updateTime time.Time) UserModelAttrFunc {
+func WithUpdateTime(updateTime MyTime) UserModelAttrFunc {
 	return func(impl *UserModelImpl) {
 		impl.UpdateTime = updateTime
 	}
 }
-
-

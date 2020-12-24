@@ -3,6 +3,7 @@ package myValidators
 import (
 	"github.com/go-playground/validator/v10"
 	"regexp"
+	"strings"
 )
 
 type Email string
@@ -20,6 +21,7 @@ func (this Email) toFunc() validator.Func {
 }
 
 func (this Email) validate(v string) bool {
+	v = strings.TrimSpace(v)
 	validatorError["Email"] = "必须输入邮箱"
 	if err := myValidator.Var(v, string(this)); err != nil {
 		return false
@@ -27,6 +29,10 @@ func (this Email) validate(v string) bool {
 	rxp := regexp.MustCompile(`[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)`)
 	matches := rxp.FindAllStringSubmatch(v, -1)
 	if len(matches) == 1 {
+		if strings.Index(v, " ") != -1 {
+			validatorError["Email"] = "邮箱不能包含空格"
+			return false
+		}
 		return true
 	}
 	validatorError["Email"] = "邮箱输入错误"

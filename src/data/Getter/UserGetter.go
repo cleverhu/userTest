@@ -12,7 +12,7 @@ func init() {
 }
 
 type IUserGetter interface {
-	GetUserList() []*UserModel.UserModelImpl
+	GetUserList() []*UserModel.UserInfoImpl
 }
 
 type UserGetterImpl struct {
@@ -22,7 +22,10 @@ func NewUserGetterImpl() *UserGetterImpl {
 	return &UserGetterImpl{}
 }
 
-func (this *UserGetterImpl) GetUserList() (us []*UserModel.UserModelImpl) {
-	dbs.Orm.Find(&us)
+func (this *UserGetterImpl) GetUserList() (us []*UserModel.UserInfoImpl) {
+	type Info struct {
+
+	}
+	dbs.Orm.Table("users").Find(&us)
 	return
 }

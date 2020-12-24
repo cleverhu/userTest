@@ -2,6 +2,7 @@ package dbs
 
 import (
 	"fmt"
+	"github.com/go-redis/redis"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"log"
@@ -9,6 +10,7 @@ import (
 )
 
 var (
+	Rds *redis.Client
 	Orm *gorm.DB
 )
 
@@ -24,4 +26,11 @@ func init() {
 	mysqlDB.SetMaxIdleConns(10)
 	mysqlDB.SetMaxIdleConns(5)
 	Orm.LogMode(true)
+
+	//初始化redis
+	Rds = redis.NewClient(&redis.Options{
+		Addr:     "101.132.138.205:6379",
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
 }

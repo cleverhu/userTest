@@ -14,7 +14,7 @@ func GetUserList(ctx *gin.Context) {
 }
 
 func AddUser(ctx *gin.Context) {
-	u := UserModel.New().Mutate(UserModel.WithUpdateTime(time.Now()))
+	u := UserModel.New().Mutate(UserModel.WithUpdateTime(UserModel.MyTime(time.Now())))
 	result.Result(ctx.ShouldBindJSON(u)).Unwrap()
 	R(ctx)("10001", "add user success", Setter.UserSetter.AddUser(u).Unwrap())(OK)
 }
