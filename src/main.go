@@ -16,7 +16,7 @@ func main() {
 	r.Use(common.ErrorHandler())
 
 	r.GET("/users", handlers.GetUserList)
-
+	r.GET("/logs", handlers.GetLogList)
 	r.POST("/users", handlers.AddUser)
 
 	log.Fatal(r.Run(":80"))

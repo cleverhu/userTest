@@ -18,3 +18,7 @@ func AddUser(ctx *gin.Context) {
 	result.Result(ctx.ShouldBindJSON(u)).Unwrap()
 	R(ctx)("10001", "add user success", Setter.UserSetter.AddUser(u).Unwrap())(OK)
 }
+
+func GetLogList(ctx *gin.Context) {
+	R(ctx)("10000", "query logs success", Getter.LogGetter.GetLogList())(OK)
+}
