@@ -20,7 +20,15 @@ func ErrorHandler() gin.HandlerFunc {
 
 
 func AuthMiddleWare() gin.HandlerFunc{
-	return func(context *gin.Context) {
+	return func(ctx *gin.Context) {
+		defer func() {
+			//ctx.GetHeader()
+			//ParseToken()
+			if err := recover(); err != nil {
+				ctx.JSON(400, gin.H{"message": err})
+			}
+		}()
 
+		ctx.Next()
 	}
 }

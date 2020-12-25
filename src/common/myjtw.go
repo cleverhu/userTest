@@ -22,3 +22,13 @@ func CreateToken(u *UserModel.UserLoginInfoImpl) (string, error) {
 	}
 	return token, nil
 }
+
+func ParseToken(token string) (jwt.MapClaims, error) {
+	claim, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
+		return []byte(SECRET), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return claim.Claims.(jwt.MapClaims), nil
+}

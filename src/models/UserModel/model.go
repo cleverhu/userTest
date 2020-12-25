@@ -29,6 +29,7 @@ type UserLoginInfoImpl struct {
 	Name       string `binding:"LoginUser" gorm:"column:u_name" json:"username,omitempty"`
 	PassWord   string `binding:"PassWord" gorm:"column:u_password" json:"password,omitempty"`
 	UpdateTime MyTime `gorm:"column:u_update_time;type:datetime" json:"update_time,omitempty"`
+	Email      string `gorm:"column:u_email" json:"email,omitempty"`
 }
 
 func NewUserLoginInfoImpl() *UserLoginInfoImpl {
