@@ -40,8 +40,8 @@ func (this *UserSetterImpl) AddUser(u *UserModel.UserModelImpl) *result.ErrorRes
 
 	userExists := dbs.Rds.GetBit("users", offset).Val()
 	emailExists := dbs.Rds.GetBit("emails", offset1).Val()
-	fmt.Println(offset,offset1)
-	fmt.Println(userExists,emailExists)
+	fmt.Println(offset, offset1)
+	fmt.Println(userExists, emailExists)
 	if userExists == 1 || emailExists == 1 {
 		return &result.ErrorResult{
 			Err:  fmt.Errorf("user is existed, redis"),
@@ -51,7 +51,7 @@ func (this *UserSetterImpl) AddUser(u *UserModel.UserModelImpl) *result.ErrorRes
 
 	if dbs.Orm.First(&u, "u_email = ? or u_name = ?", u.Email, u.Name).RecordNotFound() {
 		err := dbs.Orm.Transaction(func(tx *gorm.DB) error {
-
+			u.UpdateTime = UserModel.MyTime(time.Now())
 			u.PassWord = fmt.Sprintf("%x", md5.Sum([]byte(u.PassWord)))
 			if err := tx.Save(&u).Error; err != nil {
 				return err

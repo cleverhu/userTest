@@ -2,6 +2,7 @@ package common
 
 import (
 	"github.com/gin-gonic/gin"
+
 )
 
 func ErrorHandler() gin.HandlerFunc {
@@ -14,5 +15,12 @@ func ErrorHandler() gin.HandlerFunc {
 		}()
 
 		ctx.Next()
+	}
+}
+
+
+func AuthMiddleWare() gin.HandlerFunc{
+	return func(context *gin.Context) {
+
 	}
 }

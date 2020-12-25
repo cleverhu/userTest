@@ -20,5 +20,11 @@ func AddUser(ctx *gin.Context) {
 }
 
 func GetLogList(ctx *gin.Context) {
-	R(ctx)("10000", "query logs success", Getter.LogGetter.GetLogList())(OK)
+	R(ctx)("10002", "query logs success", Getter.LogGetter.GetLogList())(OK)
+}
+
+func Login(ctx *gin.Context) {
+	u := UserModel.NewUserLoginInfoImpl()
+	result.Result(ctx.ShouldBindJSON(u)).Unwrap()
+	R(ctx)("10003", "login success", Getter.UserGetter.Login(u).Unwrap())(OK)
 }

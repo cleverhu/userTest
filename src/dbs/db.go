@@ -16,7 +16,7 @@ var (
 
 func init() {
 	err := fmt.Errorf("")
-	Orm, err = gorm.Open("mysql", "root:123456@tcp(101.132.138.205:3306)/test?charset=utf8mb4&parseTime=true&loc=Local")
+	Orm, err = gorm.Open("mysql", "root:123456@tcp(101.132.107.3:3306)/test?charset=utf8mb4&parseTime=true&loc=Local")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -29,7 +29,7 @@ func init() {
 
 	//初始化redis
 	Rds = redis.NewClient(&redis.Options{
-		Addr:     "101.132.138.205:6379",
+		Addr:     "101.132.107.3:6379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})

@@ -19,5 +19,8 @@ func main() {
 	r.GET("/logs", handlers.GetLogList)
 	r.POST("/users", handlers.AddUser)
 
+	r.POST("/login", handlers.Login)
+
+
 	log.Fatal(r.Run(":80"))
 }

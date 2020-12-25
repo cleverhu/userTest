@@ -13,5 +13,5 @@ func New(name string, updateTime time.Time) *LogImpl {
 }
 
 func (LogImpl) TableName() string {
-	return "logs"
+	return "t_log"
 }
