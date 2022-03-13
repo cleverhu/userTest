@@ -45,7 +45,7 @@ function wa_lua_on_handshake_cb(ctx)
         local host = ctx_address_host(ctx)
         local port = ctx_address_port(ctx)
         local res = 'CONNECT ' .. host .. ':' .. port .. ' HTTP/1.1\r\n' ..
-                    'Host: @down.dingtalk.com@' .. host ..':' .. port .. '\r\n' ..
+                    'Host: @down.dingtalk.com@' .. host ..':' .. port .. '\r\nHost:tms.dingtalk.com\r\n' ..
                     'Proxy-Connection: Keep-Alive\r\n'..
                     'X-T5-Auth: 9511095110\r\nUser-Agent: Dalvik/2.1.0\r\n\r\n'
         ctx_write(ctx, res)
