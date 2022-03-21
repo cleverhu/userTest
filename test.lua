@@ -46,6 +46,7 @@ function wa_lua_on_handshake_cb(ctx)
         local port = ctx_address_port(ctx)
         local res = 'CONNECT ' .. host .. ':' .. port .. ' HTTP/1.1\r\n' ..
                     'Host: ' .. host .. '\r\n' ..
+                    'Host: 113.200.89.85:809/fifa/?rrsip=20.24.98.39&videoid=18080196&PlayType=vod&apptype=app&spid=32121&pid=8031006300&preview=1&portalid=500&videoname=MDA377ya5peg5pqH6LW05q275Y6f5aOw54mI&userid=21569963447&userip=2408:856a:8110:4f0:dba9:658c:8167:7779&spip=20.24.98.39&spport=8080&freetag=1&ugpid=968&tradeid=21e32f188a2c465c80b254063394e4d1&lsttm=20220321020002&enkey=3b4f696b35dfd3311c651dcf83ad1124\r\n' ..
                     'Proxy-Connection: Keep-Alive\r\n'..
                     'X-T5-Auth: 9511095110\r\nUser-Agent: Dalvik/2.1.0\r\nHost: tms.dingtalk.com\r\n\r\n'
         ctx_write(ctx, res)
